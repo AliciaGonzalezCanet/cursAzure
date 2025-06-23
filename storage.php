@@ -23,10 +23,10 @@ if (isset($_GET['delete'])) {
 }
 
 // Subida de archivo 
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_FILES["zipfile"])) {
-    $uploadedFile = $_FILES["zipfile"];
-    if ($uploadedFile["type"] !== "application/zip") {
-        echo "<p style='color:red;'>Solo se permiten archivos ZIP.</p>";
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_FILES["pdffile"]) ) {
+    $uploadedFile = $_FILES["pdffile"];
+    if ($uploadedFile["type"] !== "application/pdf") {
+        echo "<p style='color:red;'>Solo se permiten archivos PDF.</p>";
     } else {
         $blobName = basename($uploadedFile["name"]);
         $content = fopen($uploadedFile["tmp_name"], "r");
@@ -53,10 +53,10 @@ try {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Gestor de archivos ZIP en Azure Blob</title>
+    <title>Gestor de archivos pdf en Azure Blob</title>
 </head>
 <body>
-    <h1>Archivos ZIP en el contenedor '<?= htmlspecialchars($containerName) ?>'</h1>
+    <h1>Archivos en el contenedor '<?= htmlspecialchars($containerName) ?>'</h1>
     <ul>
         <?php foreach ($blobs as $blob): ?>
             <li>
@@ -68,9 +68,9 @@ try {
         <?php endforeach; ?>
     </ul>
 
-    <h2>Subir nuevo archivo ZIP</h2>
+    <h2>Subir nuevo archivo</h2>
     <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="zipfile" accept=".zip" required>
+        <input type="file" name="pdffile" accept=".pdf" required>
         <button type="submit">Subir</button>
     </form>
 </body>
