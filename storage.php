@@ -3,11 +3,18 @@ require 'vendor/autoload.php';
 
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions;
-use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 // Configuración
 $connectionString = getenv("AZURE_STORAGE_CONNECTION_STRING");
 $containerName = "fitxers";  // Cambia esto por el nombre de tu contenedor
+
+if (!$connectionString) {
+    die("La variable AZURE_STORAGE_CONNECTION_STRING no está configurada.");
+}
+
 
 $blobClient = BlobRestProxy::createBlobService($connectionString);
 
